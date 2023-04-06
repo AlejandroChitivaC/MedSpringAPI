@@ -13,13 +13,13 @@ import org.springframework.web.bind.annotation.*;
 public class MedicoController {
     @Autowired
     private MedicoRepo medicoRepo;
+
     @PostMapping
 
+    //Guarda en la base de datos
     public void registrarMedico(@RequestBody DatosRegistroMedico datosRegMed) {
-        System.out.println("Datos Recibidos: "+datosRegMed);
+        System.out.println("Datos Recibidos: " + datosRegMed);
         medicoRepo.save(new Medico(datosRegMed));
-
-
     }
 //EL String datosregmed es lo que le debe llegar al api
     // El @RequestBody es para que el api sepa que el String param
