@@ -3,13 +3,14 @@ package med.voll.api.controllers;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
-import med.voll.api.direccion.DatosDireccion;
-import med.voll.api.medico.*;
+import med.voll.api.domain.direccion.DatosDireccion;
+import med.voll.api.domain.medico.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -17,10 +18,10 @@ import java.net.URI;
 
 @RestController
 @JsonDeserialize
+@Validated
 //Ruta para acceder a los metodos de esta clase
 @RequestMapping("/medicos")
 public class MedicoController {
-
     @Autowired
     private MedicoRepo medicoRepo;
 
@@ -40,7 +41,6 @@ public class MedicoController {
     }
 
     @GetMapping
-
     //Paginacion por medio de Spring se manda una Page y se mapea por el Pageable
     //Con el PageableDefault se le puede limitar la cantidad de datos que se muestran
     public ResponseEntity<Page<DatosListadoMed>> listarMedicos(@PageableDefault(size = 3) Pageable pag) {
@@ -74,6 +74,8 @@ public class MedicoController {
         Medico med = medicoRepo.getReferenceById(id);
         var datosMed=new DatosRtaMedico(med.getId(), med.getNombre(), med.getEmail(), med.getTelefono(), med.getDocumento(), med.getEspecialidad(), new DatosDireccion(med.getDireccion().getCalle(), med.getDireccion().getCiudad(), med.getDireccion().getDistrito(), med.getDireccion().getNumero(), med.getDireccion().getComplemento()));
         return ResponseEntity.ok(datosMed);
+
+
     }
 
 }

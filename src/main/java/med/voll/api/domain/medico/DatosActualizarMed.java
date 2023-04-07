@@ -1,10 +1,7 @@
-package med.voll.api.medico;
+package med.voll.api.domain.medico;
 
 import jakarta.validation.constraints.NotNull;
-import med.voll.api.direccion.DatosDireccion;
-import med.voll.api.direccion.Direccion;
-
-import java.io.Serializable;
+import med.voll.api.domain.direccion.DatosDireccion;
 
 /**
  * A DTO for the {@link Medico} entity
